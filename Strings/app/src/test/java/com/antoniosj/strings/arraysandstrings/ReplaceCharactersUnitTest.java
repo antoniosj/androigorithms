@@ -1,4 +1,4 @@
-package com.antoniosj.strings;
+package com.antoniosj.strings.arraysandstrings;
 
 import com.antoniosj.strings.arraysandstrings.ReplaceCharacters;
 
