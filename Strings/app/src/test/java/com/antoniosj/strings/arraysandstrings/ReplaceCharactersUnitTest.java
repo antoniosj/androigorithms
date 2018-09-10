@@ -28,7 +28,7 @@ public class ReplaceCharactersUnitTest {
     }
 
     @Test
-    public void fillSpaces_isNotCorrect() {
+    public void fillSpaces_isIncorrect() {
 
         int length = 10;
         String s1 = "User is not allowed      ";

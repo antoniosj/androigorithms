@@ -39,7 +39,7 @@ public class CheckWords {
         return true;
     }
 
-    private static boolean isSideCase(String a, String b) {
+    static boolean isSideCase(String a, String b) {
 
         if (a == null || b == null) {
             return true;
