@@ -34,7 +34,6 @@ public class CheckWordsUnitTest {
 
         String s1 = "moon";
         String s2 = "nmoo";
-
         String s3 = "misspellings";
         String s4 = "mpeissngslli";
 
