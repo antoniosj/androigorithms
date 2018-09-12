@@ -11,30 +11,21 @@ public class WordPresenter {
     public ArrayList<String> fillWords() {
 
         ArrayList<String> words = new ArrayList<>();
-        words.add("asdasd1");
+        words.add("you");
         words.add("jambo");
-        words.add("asdasd1sadasdsad");
-        words.add("asdggggasd1");
-        words.add("asd");
-        words.add("asdasd1");
-        words.add("asdasd1");
-        words.add("asxxxxxdasd1");
-        words.add("asdasd1sadasdsad");
-        words.add("asdggggasd1");
-        words.add("asd");
-        words.add("asdasd1");
-        words.add("asdasasdd1");
-        words.add("asdaxcsd1");
-        words.add("asdasd1");
-        words.add("asxxxxxdasd1");
-        words.add("asdasd1sadasdsad");
-        words.add("asdggggasd1");
-        words.add("asd");
-        words.add("asdasd1");
-        words.add("asdasasdd1");
-        words.add("asdaxcsd1");
-        words.add("asdasasdd1");
-        words.add("asdaxcsd1");
+        words.add("probably");
+        words.add("despite");
+        words.add("moon");
+        words.add("misspellings");
+        words.add("pale");
+        words.add("cerveja");
+        words.add("banana");
+        words.add("cesar");
+        words.add("recife");
+        words.add("android");
+        words.add("bacon");
+        words.add("timhortons");
+        words.add("starbucks");
 
         return words;
     }

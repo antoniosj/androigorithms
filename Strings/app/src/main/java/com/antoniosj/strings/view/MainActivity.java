@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//TODO save instance from list (rotate) - FIX
 
 public class MainActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener {
 
@@ -34,22 +33,33 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         binding.recyclerViewWords.setLayoutManager(new LinearLayoutManager(this));
 
         presenter = new WordPresenter();
+        ArrayList<String> filteredList = new ArrayList<String>();
         if (savedInstanceState != null) {
-            mWords = savedInstanceState.getStringArrayList("words");
-        } else {
-            mWords = presenter.fillWords();
+            filteredList = savedInstanceState.getStringArrayList(getResources().getString(R.string.words));
         }
 
+        mWords = presenter.fillWords();
         binding.recyclerViewWords.setAdapter(new WordAdapter(mWords, this));
+
+        if (!filteredList.isEmpty() && filteredList != null) {
+            mAdapter = (WordAdapter) binding.recyclerViewWords.getAdapter();
+            if (mAdapter != null) {
+                mAdapter.setFilter(filteredList);
+            }
+        }
 
         setupSearchView();
         setupRefresh();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        outState.putStringArrayList("words", mWords);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mAdapter = (WordAdapter) binding.recyclerViewWords.getAdapter();
+        if (mAdapter != null) {
+            final ArrayList<String> filteredList = mAdapter.getFilter();
+            outState.putStringArrayList(getResources().getString(R.string.words), filteredList);
+        }
     }
 
     private void setupRefresh() {
@@ -68,16 +78,16 @@ public class MainActivity extends AppCompatActivity  implements SearchView.OnQue
         binding.searchView.setIconifiedByDefault(false);
         binding.searchView.setOnQueryTextListener(this);
         binding.searchView.setSubmitButtonEnabled(true);
-        binding.searchView.setQueryHint(("Digite aqui"));
+        binding.searchView.setQueryHint(getResources().getString(R.string.type_here));
     }
 
 
     @Override
     public boolean onQueryTextSubmit(String newText) {
-        if (presenter != null) {
-            presenter =  new WordPresenter();
+        if (presenter == null) {
+            presenter = new WordPresenter();
         }
-        final ArrayList<String> filteredList = presenter.filter(mWords, newText);
+        ArrayList<String> filteredList = presenter.filter(mWords, newText);
         mAdapter = (WordAdapter) binding.recyclerViewWords.getAdapter();
         if (mAdapter != null) {
             mAdapter.setFilter(filteredList);

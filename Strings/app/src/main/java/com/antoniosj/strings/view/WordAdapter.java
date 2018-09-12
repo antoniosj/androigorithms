@@ -21,6 +21,13 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         mWords.addAll(words);
         notifyDataSetChanged();
     }
+    public ArrayList<String> getFilter() {
+        if (mWords != null) {
+            return mWords;
+        } else {
+            return new ArrayList<>();
+        }
+    }
 
     public WordAdapter(ArrayList<String> words, Context ctx) {
         mWords = words;
