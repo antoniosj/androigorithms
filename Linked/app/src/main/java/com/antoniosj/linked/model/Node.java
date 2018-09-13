@@ -1,6 +1,8 @@
 package com.antoniosj.linked.model;
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable {
 
     public Node next = null;
     public String email;
