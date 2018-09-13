@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
@@ -43,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
             switch (msg.what) {
                 case 0:
-                    Toast.makeText(MainActivity.this, msg.getData().getString("KEY_MESSAGE"), Toast.LENGTH_SHORT).show();
+                    String data = msg.getData().getString("KEY_MESSAGE");
+                  //  Node n = new Gson().fromJson(data, Node.class);
+
+                    Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
                     Log.d("asjr", msg.arg1 + " 2");
                     break;
                 default:
@@ -66,16 +71,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+
                 if (!isBound) {
-                    Toast.makeText(MainActivity.this, "FODA-SE", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "NOT BINDED YET", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                startService(intent);
+
                 Message msg = Message.obtain(null, 0);
                 msg.replyTo = myService2;
 
 
                 Bundle bundle = new Bundle();
-                bundle.putString("KEY_MESSAGE", "Message Received!!!!");
+                Node email = new Node("message 1");
+                email.next = new Node("message 2");
+                email.next.next = new Node("message 1");
+                String json = new Gson().toJson(email);
+                bundle.putString("KEY_MESSAGE", json);
                 msg.setData(bundle);
 
                 try {
@@ -94,9 +106,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 unbindService(myConnection);
                 isBound = false;
+                stopService(intent);
                 Toast.makeText(MainActivity.this, "PAROU", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myService = null;
+        myService2 = null;
+        isBound = false;
     }
 
     private ServiceConnection myConnection = new ServiceConnection() {
@@ -110,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void onServiceDisconnected(ComponentName className) {
             myService = null;
-
+            myService2 = null;
             isBound = false;
         }
     };

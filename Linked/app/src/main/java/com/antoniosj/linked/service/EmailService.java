@@ -14,43 +14,15 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.antoniosj.linked.linkedlists.EmailThread;
+import com.antoniosj.linked.model.Node;
+import com.google.gson.Gson;
+
+
 import java.lang.ref.WeakReference;
 
 public class EmailService extends Service {
     private static final String TAG = "ASJR";
-
-
-//
-//    @Override
-//    public IBinder onBind(Intent intent) {
-//        Log.d(TAG, "on bindddd");
-//        return null;
-//    }
-
-//    @Override
-//    protected void onHandleIntent(@Nullable Intent intent) {
-//        if (intent != null) {
-//            Log.d(TAG, "handleintent");
-//            Intent it = new Intent("sync");
-//            it.setAction("sync");
-//            it.putExtra("teste", "testeAlfa");
-//            sendBroadcast(it);
-//        }
-//    }
-
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        Log.d(TAG, "Received start id " + startId + ": " + intent);
-//        // We want this service to continue running until it is explicitly
-//        // stopped, so return sticky.
-//        return START_STICKY;
-//    }
-//    public void onDestroy() {
-//
-//        Log.d(TAG, "onDestroy");
-//    }
-
-
 
     public Messenger mMessenger = new Messenger(new MessageHandler(this));
 
@@ -66,14 +38,7 @@ public class EmailService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "RUNABLE");
-            }
-        }).start();
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     public static class MessageHandler extends Handler {
@@ -86,13 +51,21 @@ public class EmailService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
+
             if (contextReference.get() != null) {
-                Log.d(TAG, "bom dia");
+
                 Message message = Message.obtain(null, 0);
-                Toast.makeText(contextReference.get(), msg.getData().getString(KEY_MESSAGE), Toast.LENGTH_SHORT).show();
+
                 Bundle bundle = new Bundle();
-                bundle.putString("KEY_MESSAGE", "OLARR");
-                msg.setData(bundle);
+                String json = msg.getData().getString(KEY_MESSAGE);
+                Node email = new Gson().fromJson(json, Node.class);
+                EmailThread thread = new EmailThread();
+
+                thread.removeDupEmails(email);
+
+                String jsonToSent = new Gson().toJson(email);
+                bundle.putString(KEY_MESSAGE, jsonToSent);
+
                 message.setData(bundle);
                 try {
                     msg.replyTo.send(message);

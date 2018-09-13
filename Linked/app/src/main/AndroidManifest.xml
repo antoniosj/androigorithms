@@ -14,29 +14,13 @@
         <service
             android:name=".service.EmailService"
             android:exported="true"
-            android:process=":my_process">
+            android:process=":remote">
             <intent-filter>
                 <action android:name="com.example.RemoteService" >
                 </action>
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".service.MyReceive"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="sync" />
-            </intent-filter>
-        </receiver>
-
-        <activity android:name=".App.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
