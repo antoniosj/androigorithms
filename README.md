@@ -40,7 +40,7 @@ Link: [Question 5](https://github.com/antoniosj/androigorithms/blob/master/Linke
 
 Link 2: [Question 5 - Testes](https://github.com/antoniosj/androigorithms/blob/master/Linked/app/src/test/java/com/antoniosj/linked/EmailThreadUnitTest.java)
 
-## Question 6:
+### Question 6:
 Android app 2 (service)
 
 Para a cláusula do queue de emails, eu utilizei Messenger. o Messenger já faz o enqueue das threads. IntentService ou Broadcast com 1 thread no onCommandStart resolveria também esse problema, porém o Messenger faz a comunicação 2 way de uma forma bem legal.
