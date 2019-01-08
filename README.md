@@ -1,5 +1,9 @@
 # androigorithms
 
+This was a challenge that I did to my position as an Embedded Android Engineer.
+
+-x Portuguese x- 
+
 Para testar as questões de algoritmos, basta rodar os testes unitários.
 
 Para testar o app 1, basta dar launch nele.
