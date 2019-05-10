@@ -38,7 +38,7 @@ Para dar refresh na lista é só dar swipe (como no twitter/fb/etc) pra baixo.
 Link: [App String](https://github.com/antoniosj/androigorithms/tree/master/Strings)
 
 ### Question 5:
-Complexity time: O(M^2) and space: O(1)
+Complexity time: O(N) and space: O(1)
 
 Link: [Question 5](https://github.com/antoniosj/androigorithms/blob/master/Linked/app/src/main/java/com/antoniosj/linked/linkedlists/EmailThread.java)
 
